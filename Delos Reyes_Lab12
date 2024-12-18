@@ -1,0 +1,51 @@
+def display_menu():
+    # Display the food menu and prices
+    print("Welcome to the Food Ordering System!")
+    print("Menu:")
+    print("1. Pizza - $12.50")
+    print("2. Single Quarter Pounder - $8.75")
+    print("3. Chicken Alfredo - $10.00")
+    print("4. Chicken Sandwich - $6.50")
+    print("5. Mashed Potato - $2.00")
+
+def get_order():
+    # Get the user's selection from the menu
+    while True:
+        try:
+            choice = int(input("\nEnter the number of the item you would like to order (1-5): "))
+            if choice in range(1, 6):
+                return choice
+            else:
+                print("Invalid choice. Please select a number between 1 and 5.")
+        except ValueError:
+            print("Invalid input. Please enter a number between 1 and 5.")
+
+def calculate_total(choice):
+    # Calculate the total cost based on the selected choice
+    prices = {1: 12.50, 2: 8.75, 3: 10.00, 4: 6.50, 5: 2.00}
+    return prices.get(choice, 0)
+
+def process_payment(total_cost):
+    # Process payment and ensure the user provides enough cash
+    while True:
+        try:
+            payment = float(input(f"\nYour total is ${total_cost:.2f}. Please enter cash amount: $"))
+            if payment >= total_cost:
+                change = payment - total_cost
+                print(f"Payment accepted. Your change is ${change:.2f}.")
+                return change
+            else:
+                print("Insufficient payment. Please provide enough cash.")
+        except ValueError:
+            print("Invalid input. Please enter a valid cash amount.")
+
+def main():
+    # Main function to run the food ordering system
+    display_menu()
+    choice = get_order()
+    total_cost = calculate_total(choice)
+    change = process_payment(total_cost)
+    print(f"\nThank you for your order! Enjoy your meal!")
+
+if __name__ == "__main__":
+    main()
